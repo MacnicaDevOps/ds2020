@@ -58,6 +58,7 @@ jobs:
       - run:
           name: Build Image
           command: |
+            docker login artifactory.nohara -u $juser -p $jpass
             echo $CIRCLE_PROJECT_REPONAME
             docker build --tag $imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_BUILD_NUM .
 
