@@ -1,4 +1,4 @@
-From artifactory.nohara/docker/nginx:1.17
+From artifactory.nohara/docker/nginx:1.19
 #From nginx:1.19
 MAINTAINER macnica <container_sol@cs.macnica.net>
 COPY index.html /usr/share/nginx/html/
