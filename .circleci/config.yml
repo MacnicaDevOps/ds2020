@@ -75,7 +75,15 @@ jobs:
           command: |
             curl -k -u $tl_u:$tl_p --output twistcli $TL_URL"/api/v1/util/twistcli"
             chmod +x twistcli
-            ./twistcli images scan --details --address $TL_URL -u $tl_u -p $tl_p --ci $imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_BUILD_NUM 
+            ./twistcli images scan --details --address $TL_URL -u $tl_u -p $tl_p --ci $imagename"/"$CIRCLE_PROJECT_REPONAME":"$CIRCLE_BUILD_NUM | tee result.out
+            e=`cat result.out | grep -c "threshold check results: PASS"`
+            if [ $e -eq 2 ]; then
+              echo "Build Scan succeeded"
+              exit 0
+            else
+              echo "Build failed"
+              exit 1
+            fi
             
       - run:
           name: JFrogCLI config, image push and Licence policy scan
